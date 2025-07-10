@@ -3,38 +3,37 @@ name = "group-manager"
 version = "0.1.0"
 description = "Telegram mini-app for user group manager"
 authors = ["moera-sudo <https://github.com/moera-sudo>"]
-license = "MIT"
-readme = "README.md"
-packages = [
-    { include = "backend" },
-    { include = "bot" }
-]
+package-mode = false
+
+
 
 [tool.poetry.dependencies]
-python = ">=3.12"
-pydantic-settings = "^2.10.1"
+python = "=3.12.6"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.4.1"
-pytest-asyncio = "^1.0.0"
-logging = "^0.4.9.6"
-
-
-[tool.poetry.group.bot.dependencies]
 pydantic = "^2.11.7"
+pydantic-settings = "^2.10.1"
 aiogram = "^3.21.0"
-
-
-[tool.poetry.group.backend.dependencies]
 fastapi = "^0.115.14"
 asyncpg = "^0.30.0"
 passlib = "^1.7.4"
 python-jose = "^3.5.0"
 bcrypt = "^4.3.0"
+aerich = "^0.9.1"
+tortoise-orm = {extras = ["asyncpg"], version = "^0.25.1"}
+httptools = "^0.6.4"
+uvicorn = {extras = ["standart"], version = "^0.35.0"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+pytest-asyncio = "^1.0.0"
+ruff = "^0.12.2"
+taskipy = "^1.14.1"
 
 
-[tool.poetry.scripts]
-run-bot = "bot.main:main"
-run-backend = "backend.main:app"
+[tool.taskipy.tasks]
+dev = "uvicorn src.main:app --reload --port 8000"
+prod = "uvicorn src.main:app"
 
-
+[tool.ruff]
+line-length = 100
+ignore = ["F401", "E501", "I001", "F841"]
