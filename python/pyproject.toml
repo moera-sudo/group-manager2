@@ -22,6 +22,7 @@ aerich = "^0.9.1"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.25.1"}
 httptools = "^0.6.4"
 uvicorn = {extras = ["standart"], version = "^0.35.0"}
+colorlog = "^6.9.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.1"
@@ -33,6 +34,7 @@ taskipy = "^1.14.1"
 [tool.taskipy.tasks]
 dev = "uvicorn src.main:app --reload --port 8000"
 prod = "uvicorn src.main:app"
+bot = "python -m bot.main"
 
 [tool.ruff]
 line-length = 100
